@@ -12,7 +12,9 @@ var isEdit = Bool()
 
 var cellNum = Int()
 
-var listOfTasks : [(String,String,String)] = []
+var listOfTasks = [[String(),String(),String()]]
+
+var firstLoad = Bool()
 
 class FirstViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     @IBOutlet weak var table: UITableView!
@@ -61,9 +63,9 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("MyCustomTableViewCell", forIndexPath: indexPath) as! MyCustomTableViewCell
         
-        cell.title.text = listOfTasks[indexPath.row].0
-        cell.subtitle.text = listOfTasks[indexPath.row].1
-        cell.date.text = listOfTasks[indexPath.row].2
+        cell.title.text = listOfTasks[indexPath.row][0]
+        cell.subtitle.text = listOfTasks[indexPath.row][1]
+        cell.date.text = listOfTasks[indexPath.row][2]
         print(listOfTasks[indexPath.row])
         return cell
     }
@@ -78,6 +80,10 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        if firstLoad == false {
+            listOfTasks = NSArray(contentsOfURL: filePath)! as! [Array<String>]
+            firstLoad = true
+        }
         table.reloadData()
         // Do any additional setup after loading the view, typically from a nib.
     }

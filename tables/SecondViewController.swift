@@ -31,11 +31,11 @@ class SecondViewController: UIViewController {
         if isEdit == true {
             convertDatePicker()
             listOfTasks.removeAtIndex(cellNum)
-            listOfTasks.append((name.text!,desc.text!,dateString))
+            listOfTasks.append([name.text!,desc.text!,dateString])
             isEdit = false
         } else {
             convertDatePicker()
-            listOfTasks.append((name.text!,desc.text!,dateString))
+            listOfTasks.append([name.text!,desc.text!,dateString])
         }
     }
     
@@ -43,8 +43,8 @@ class SecondViewController: UIViewController {
         super.viewDidLoad()
         if isEdit == true {
             topLabel.text = "Edit this item"
-            name.text = listOfTasks[cellNum].0
-            desc.text = listOfTasks[cellNum].1
+            name.text = listOfTasks[cellNum][0]
+            desc.text = listOfTasks[cellNum][1]
         }
         // Do any additional setup after loading the view, typically from a nib.
     }
