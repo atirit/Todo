@@ -21,6 +21,10 @@ class SecondViewController: UIViewController {
         let dateFormatter = NSDateFormatter()
         dateFormatter.dateFormat = "hh:mm"
         dateString = dateFormatter.stringFromDate(datePicker.date)
+        let index = dateString.startIndex.advancedBy(0)
+        if dateString[index] == "0" {
+            dateString = String(dateString.characters.dropFirst())
+        }
     }
         
     @IBAction func save(sender: AnyObject) {

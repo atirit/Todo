@@ -14,8 +14,6 @@ var cellNum = Int()
 
 var listOfTasks : [(String,String,String)] = []
 
-var loadedLOT = 0
-
 class FirstViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     @IBOutlet weak var table: UITableView!
     
@@ -52,6 +50,10 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
         return 1
     }
     
+    func tableView(tableView:UITableView, heightForRowAtIndexPath indexPath:NSIndexPath)->CGFloat {
+        return 44
+    }
+    
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return listOfTasks.count
     }
@@ -76,11 +78,6 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        if loadedLOT == 0 {
-            listOfTasks = [ ("Hey There","Welcome","12:00"), ("Hi","Hello","1:00") ]
-            loadedLOT = loadedLOT + 1
-        }
-        self.table.registerClass(MyCustomTableViewCell.self, forCellReuseIdentifier: "MyCustomTableViewCell")
         table.reloadData()
         // Do any additional setup after loading the view, typically from a nib.
     }
