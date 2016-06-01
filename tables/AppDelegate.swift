@@ -10,8 +10,7 @@ import UIKit
 
 import Foundation
 
-let dir = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.AllDomainsMask, true).first
-let filePath = NSURL(fileURLWithPath: dir!).URLByAppendingPathComponent("file.txt")
+var filePath = NSURL()
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -21,6 +20,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
+        do {
+            let dir = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.AllDomainsMask, true).first
+            filePath = NSURL(fileURLWithPath: dir!).URLByAppendingPathComponent("file.txt")
+        }
+        
         return true
     }
 
