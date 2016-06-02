@@ -34,7 +34,7 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
         } else {
             let alertController = UIAlertController(title: "About the Edit button", message: "Select a row and press Edit to edit that row.", preferredStyle: .Alert)
             
-            let yesAlert = UIAlertAction(title: "OK", style: .Default) { (action) -> Void in print("This has to be here or I can't compile :P") }
+            let yesAlert = UIAlertAction(title: "OK", style: .Default) { (action) -> Void in print("", terminator: "") }
             
             alertController.addAction(yesAlert)
             
@@ -80,9 +80,23 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        if firstLoad == false {
-            listOfTasks = NSArray(contentsOfURL: filePath)! as! [Array<String>]
-            firstLoad = true
+        if (fileURL.checkResourceIsReachableAndReturnError(nil)) {
+            let checkIfEmpty = NSArray(contentsOfFile: String(fileURL))
+            if checkIfEmpty != nil {
+                listOfTasks = NSArray(contentsOfFile: String(fileURL)) as! [Array<String>]
+            }
+        } else {
+            print("First time running the app!")
+            let alertController = UIAlertController(title: "Welcome to the Todo app!", message: "Select a row and press Edit to edit that row. Press the Add button to add an item.", preferredStyle: .Alert)
+            
+            let yesAlert = UIAlertAction(title: "OK", style: .Default) { (action) -> Void in print("", terminator: "") }
+            
+            alertController.addAction(yesAlert)
+            
+            self.presentViewController(alertController, animated: true, completion: nil)
+        }
+        if listOfTasks[0] == [["","",""]] {
+            listOfTasks.removeAtIndex(0)
         }
         table.reloadData()
         // Do any additional setup after loading the view, typically from a nib.
