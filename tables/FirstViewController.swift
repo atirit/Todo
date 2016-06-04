@@ -81,6 +81,8 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
             table.reloadData()
             if listOfTasks.isEmpty {
                 table.hidden = true
+            } else {
+                table.hidden = false
             }
         }
     }
@@ -117,6 +119,11 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
     }
 
     override func viewWillAppear(animated: Bool) {
+        if listOfTasks.isEmpty {
+            table.hidden = true
+        } else {
+            table.hidden = false
+        }
         table.reloadData()
     }
     

@@ -31,6 +31,8 @@ class SecondViewController: UIViewController {
         if isEdit == true {
             convertDatePicker()
             if name.text!.isEmpty {
+                
+            } else {
                 listOfTasks.removeAtIndex(cellNum)
                 listOfTasks.append([name.text!,desc.text!,dateString])
                 isEdit = false
@@ -38,6 +40,8 @@ class SecondViewController: UIViewController {
         } else {
             convertDatePicker()
             if name.text!.isEmpty {
+                
+            } else {
                 listOfTasks.append([name.text!,desc.text!,dateString])
             }
         }
@@ -55,8 +59,10 @@ class SecondViewController: UIViewController {
                 
                 self.presentViewController(alertController, animated: true, completion: nil)
                 
-                listOfTasks.removeLast()
-                
+                if listOfTasks.isEmpty {
+                } else {
+                    listOfTasks.removeLast()
+                }
                 return false
             
             } else {
@@ -64,7 +70,6 @@ class SecondViewController: UIViewController {
                 return true
             }
         }
-        
         // by default, transition
         return true
     }
