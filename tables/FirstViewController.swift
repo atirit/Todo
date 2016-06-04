@@ -16,6 +16,10 @@ var listOfTasks = [[String(),String(),String()]]
 
 var firstLoad = Bool()
 
+var fileSize = Int64()
+
+var firstRunEver = Bool()
+
 class FirstViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     @IBOutlet weak var table: UITableView!
     
@@ -34,7 +38,7 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
         } else {
             let alertController = UIAlertController(title: "About the Edit button", message: "Select a row and press Edit to edit that row.", preferredStyle: .Alert)
             
-            let yesAlert = UIAlertAction(title: "OK", style: .Default) { (action) -> Void in print("", terminator: "") }
+            let yesAlert = UIAlertAction(title: "OK", style: .Default, handler: nil)
             
             alertController.addAction(yesAlert)
             
@@ -75,30 +79,35 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
         if (editingStyle == UITableViewCellEditingStyle.Delete){
             listOfTasks.removeAtIndex(indexPath.row)
             table.reloadData()
+            if listOfTasks.isEmpty {
+                table.hidden = true
+            }
         }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        if (fileURL.checkResourceIsReachableAndReturnError(nil)) {
-            let checkIfEmpty = NSArray(contentsOfFile: String(fileURL))
-            if checkIfEmpty != nil {
-                listOfTasks = NSArray(contentsOfFile: String(fileURL)) as! [Array<String>]
+        if firstLoad == false {
+            do {
+                let fileAttributes = try NSFileManager.defaultManager().attributesOfItemAtPath(fileURL.path!)
+                let fileSizeNumber = fileAttributes[NSFileSize] as! NSNumber
+                fileSize = fileSizeNumber.longLongValue
+            } catch _ as NSError {
+                print("Filesize reading failed")
             }
-        } else {
-            print("First time running the app!")
-            let alertController = UIAlertController(title: "Welcome to the Todo app!", message: "Select a row and press Edit to edit that row. Press the Add button to add an item.", preferredStyle: .Alert)
-            
-            let yesAlert = UIAlertAction(title: "OK", style: .Default) { (action) -> Void in print("", terminator: "") }
-            
-            alertController.addAction(yesAlert)
-            
-            self.presentViewController(alertController, animated: true, completion: nil)
-        }
-        if listOfTasks[0] == [["","",""]] {
-            listOfTasks.removeAtIndex(0)
+            if fileSize != 0 {
+                listOfTasks = NSArray(contentsOfURL: fileURL)! as! [Array<String>]
+            } else {
+                firstRunEver = true
+            }
+            firstLoad = true
         }
         table.reloadData()
+        if listOfTasks.isEmpty {
+            table.hidden = true
+        } else {
+            table.hidden = false
+        }
         // Do any additional setup after loading the view, typically from a nib.
     }
 
@@ -108,7 +117,21 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
     }
 
     override func viewWillAppear(animated: Bool) {
-        self.table.reloadData()
+        table.reloadData()
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        if firstRunEver == true {
+            let alertController = UIAlertController(title: "Welcome to Todo List!", message: "Press + to add an item. Edit an item by selecting its row and pressing the Edit button.", preferredStyle: .Alert)
+        
+            let yesAlert = UIAlertAction(title: "OK", style: .Default, handler: nil)
+        
+            alertController.addAction(yesAlert)
+        
+            self.presentViewController(alertController, animated: true, completion: nil)
+            
+            firstRunEver = false
+        }
     }
 }
 

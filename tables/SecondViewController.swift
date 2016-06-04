@@ -26,17 +26,47 @@ class SecondViewController: UIViewController {
             dateString = String(dateString.characters.dropFirst())
         }
     }
-        
+    
     @IBAction func save(sender: AnyObject) {
         if isEdit == true {
             convertDatePicker()
-            listOfTasks.removeAtIndex(cellNum)
-            listOfTasks.append([name.text!,desc.text!,dateString])
-            isEdit = false
+            if name.text!.isEmpty {
+                listOfTasks.removeAtIndex(cellNum)
+                listOfTasks.append([name.text!,desc.text!,dateString])
+                isEdit = false
+            }
         } else {
             convertDatePicker()
-            listOfTasks.append([name.text!,desc.text!,dateString])
+            if name.text!.isEmpty {
+                listOfTasks.append([name.text!,desc.text!,dateString])
+            }
         }
+    }
+    
+    override func shouldPerformSegueWithIdentifier(identifier: String, sender: AnyObject!) -> Bool {
+        if identifier == "Second" {
+            if (name.text!.isEmpty) {
+                
+                let alertController = UIAlertController(title: "Add a name!", message: "", preferredStyle: .Alert)
+                
+                let yesAlert = UIAlertAction(title: "OK", style: .Default, handler: nil)
+                
+                alertController.addAction(yesAlert)
+                
+                self.presentViewController(alertController, animated: true, completion: nil)
+                
+                listOfTasks.removeLast()
+                
+                return false
+            
+            } else {
+                
+                return true
+            }
+        }
+        
+        // by default, transition
+        return true
     }
     
     override func viewDidLoad() {

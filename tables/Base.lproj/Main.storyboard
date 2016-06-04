@@ -19,6 +19,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No items. Add an item with the + button!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YG9-Tq-wah">
+                                <rect key="frame" x="-42" y="-21" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="XGz-ye-ANs">
                                 <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -133,12 +139,15 @@
                             <constraint firstItem="4e9-wU-6Td" firstAttribute="leading" secondItem="tsR-hK-woN" secondAttribute="leading" id="Bh0-cB-UGa"/>
                             <constraint firstItem="4e9-wU-6Td" firstAttribute="top" secondItem="Ia1-K6-d13" secondAttribute="bottom" id="Ird-PT-EC7"/>
                             <constraint firstItem="XGz-ye-ANs" firstAttribute="bottom" secondItem="4ug-Mw-9AY" secondAttribute="top" id="OFP-6G-qNC"/>
+                            <constraint firstItem="YG9-Tq-wah" firstAttribute="centerX" secondItem="4e9-wU-6Td" secondAttribute="centerX" id="Owi-3d-m69"/>
                             <constraint firstItem="XGz-ye-ANs" firstAttribute="top" secondItem="4e9-wU-6Td" secondAttribute="bottom" id="SHs-ay-QdU"/>
                             <constraint firstItem="XGz-ye-ANs" firstAttribute="leading" secondItem="4e9-wU-6Td" secondAttribute="leading" id="VzH-FZ-j8I"/>
                             <constraint firstItem="XGz-ye-ANs" firstAttribute="trailing" secondItem="4e9-wU-6Td" secondAttribute="trailing" id="pZD-HG-6FY"/>
+                            <constraint firstItem="YG9-Tq-wah" firstAttribute="centerY" secondItem="tsR-hK-woN" secondAttribute="centerY" id="uks-dp-nVZ"/>
                         </constraints>
                         <variation key="default">
                             <mask key="subviews">
+                                <exclude reference="YG9-Tq-wah"/>
                                 <exclude reference="XGz-ye-ANs"/>
                                 <exclude reference="4e9-wU-6Td"/>
                             </mask>
@@ -150,10 +159,13 @@
                                 <exclude reference="SHs-ay-QdU"/>
                                 <exclude reference="VzH-FZ-j8I"/>
                                 <exclude reference="pZD-HG-6FY"/>
+                                <exclude reference="Owi-3d-m69"/>
+                                <exclude reference="uks-dp-nVZ"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
                             <mask key="subviews">
+                                <include reference="YG9-Tq-wah"/>
                                 <include reference="XGz-ye-ANs"/>
                                 <include reference="4e9-wU-6Td"/>
                             </mask>
@@ -165,6 +177,8 @@
                                 <include reference="SHs-ay-QdU"/>
                                 <include reference="VzH-FZ-j8I"/>
                                 <include reference="pZD-HG-6FY"/>
+                                <include reference="Owi-3d-m69"/>
+                                <include reference="uks-dp-nVZ"/>
                             </mask>
                         </variation>
                     </view>
