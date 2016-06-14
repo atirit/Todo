@@ -20,6 +20,8 @@ var fileSize = Int64()
 
 var firstRunEver = Bool()
 
+var dateFromLabel = String()
+
 class FirstViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     @IBOutlet weak var table: UITableView!
     
@@ -34,6 +36,7 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
     @IBAction func edit(sender: AnyObject) {
         if itemIsSelected == true {
             isEdit = true
+            dateFromLabel = listOfTasks[cellNum][2]
             performSegueWithIdentifier("First", sender: FirstViewController())
         } else {
             let alertController = UIAlertController(title: "About the Edit button", message: "Select a row and press Edit to edit that row.", preferredStyle: .Alert)
@@ -79,6 +82,7 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
         if (editingStyle == UITableViewCellEditingStyle.Delete){
             listOfTasks.removeAtIndex(indexPath.row)
             table.reloadData()
+            itemIsSelected = false
             if listOfTasks.isEmpty {
                 table.hidden = true
             } else {

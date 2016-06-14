@@ -18,7 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		88A4DE461CF2637C00F09989 /* todo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = todo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		88A4DE461CF2637C00F09989 /* Todo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Todo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		88A4DE491CF2637C00F09989 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		88A4DE4B1CF2637C00F09989 /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
 		88A4DE4D1CF2637C00F09989 /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
@@ -52,7 +52,7 @@
 		88A4DE471CF2637C00F09989 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				88A4DE461CF2637C00F09989 /* todo.app */,
+				88A4DE461CF2637C00F09989 /* Todo.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -91,7 +91,7 @@
 			);
 			name = todo;
 			productName = tables;
-			productReference = 88A4DE461CF2637C00F09989 /* todo.app */;
+			productReference = 88A4DE461CF2637C00F09989 /* Todo.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -266,7 +266,7 @@
 				INFOPLIST_FILE = tables/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.aydintiritoglu.todo;
-				PRODUCT_NAME = todo;
+				PRODUCT_NAME = Todo;
 			};
 			name = Debug;
 		};
@@ -277,7 +277,7 @@
 				INFOPLIST_FILE = tables/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.aydintiritoglu.todo;
-				PRODUCT_NAME = todo;
+				PRODUCT_NAME = Todo;
 			};
 			name = Release;
 		};

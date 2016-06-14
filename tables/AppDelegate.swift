@@ -10,17 +10,21 @@ import UIKit
 
 import Foundation
 
-let documentsDirectory = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask).last!
+var documentsDirectory = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask).last!
 let fileURL = documentsDirectory.URLByAppendingPathComponent("file.txt")
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
-
+    
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
+        
+        #if (arch(i386) || arch(x86_64)) && os(iOS)
+            documentsDirectory = NSURL(fileURLWithPath: NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.AllDomainsMask, true).first!)
+        #endif
+        
         if (fileURL.checkResourceIsReachableAndReturnError(nil)) {
             print("file exists")
         } else {
