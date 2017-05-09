@@ -27,48 +27,48 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     var itemIsSelected = Bool()
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         itemIsSelected = true
         cellNum = indexPath.row
         print(cellNum)
     }
     
-    @IBAction func edit(sender: AnyObject) {
+    @IBAction func edit(_ sender: AnyObject) {
         if itemIsSelected == true {
             isEdit = true
             dateFromLabel = listOfTasks[cellNum][2]
-            performSegueWithIdentifier("First", sender: FirstViewController())
+            performSegue(withIdentifier: "First", sender: FirstViewController())
         } else {
-            let alertController = UIAlertController(title: "About the Edit button", message: "Select a row and press Edit to edit that row.", preferredStyle: .Alert)
+            let alertController = UIAlertController(title: "About the Edit button", message: "Select a row and press Edit to edit that row.", preferredStyle: .alert)
             
-            let yesAlert = UIAlertAction(title: "OK", style: .Default, handler: nil)
+            let yesAlert = UIAlertAction(title: "OK", style: .default, handler: nil)
             
             alertController.addAction(yesAlert)
             
-            self.presentViewController(alertController, animated: true, completion: nil)
+            self.present(alertController, animated: true, completion: nil)
         }
     }
     
-    @IBAction func add(sender: AnyObject) {
-        let firstViewController = self.storyboard!.instantiateViewControllerWithIdentifier("First") as! FirstViewController
+    @IBAction func add(_ sender: AnyObject) {
+        let firstViewController = self.storyboard!.instantiateViewController(withIdentifier: "First") as! FirstViewController
         
         self.navigationController!.pushViewController(firstViewController, animated: true)
     }
     
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
-    func tableView(tableView:UITableView, heightForRowAtIndexPath indexPath:NSIndexPath)->CGFloat {
+    func tableView(_ tableView:UITableView, heightForRowAt indexPath:IndexPath)->CGFloat {
         return 44
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return listOfTasks.count
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("MyCustomTableViewCell", forIndexPath: indexPath) as! MyCustomTableViewCell
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "MyCustomTableViewCell", for: indexPath) as! MyCustomTableViewCell
         
         cell.title.text = listOfTasks[indexPath.row][0]
         cell.subtitle.text = listOfTasks[indexPath.row][1]
@@ -77,16 +77,16 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
         return cell
     }
     
-    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath){
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath){
         
-        if (editingStyle == UITableViewCellEditingStyle.Delete){
-            listOfTasks.removeAtIndex(indexPath.row)
+        if (editingStyle == UITableViewCellEditingStyle.delete){
+            listOfTasks.remove(at: indexPath.row)
             table.reloadData()
             itemIsSelected = false
             if listOfTasks.isEmpty {
-                table.hidden = true
+                table.isHidden = true
             } else {
-                table.hidden = false
+                table.isHidden = false
             }
         }
     }
@@ -95,14 +95,14 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
         super.viewDidLoad()
         if firstLoad == false {
             do {
-                let fileAttributes = try NSFileManager.defaultManager().attributesOfItemAtPath(fileURL.path!)
-                let fileSizeNumber = fileAttributes[NSFileSize] as! NSNumber
-                fileSize = fileSizeNumber.longLongValue
+                let fileAttributes = try FileManager.default.attributesOfItem(atPath: fileURL.path)
+                let fileSizeNumber = fileAttributes[FileAttributeKey.size] as! NSNumber
+                fileSize = fileSizeNumber.int64Value
             } catch _ as NSError {
                 print("Filesize reading failed")
             }
             if fileSize != 0 {
-                listOfTasks = NSArray(contentsOfURL: fileURL)! as! [Array<String>]
+                listOfTasks = NSArray(contentsOf: fileURL)! as! [Array<String>]
             } else {
                 firstRunEver = true
             }
@@ -110,9 +110,9 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
         }
         table.reloadData()
         if listOfTasks.isEmpty {
-            table.hidden = true
+            table.isHidden = true
         } else {
-            table.hidden = false
+            table.isHidden = false
         }
         // Do any additional setup after loading the view, typically from a nib.
     }
@@ -122,24 +122,24 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
         // Dispose of any resources that can be recreated.
     }
 
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         if listOfTasks.isEmpty {
-            table.hidden = true
+            table.isHidden = true
         } else {
-            table.hidden = false
+            table.isHidden = false
         }
         table.reloadData()
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         if firstRunEver == true {
-            let alertController = UIAlertController(title: "Welcome to Todo List!", message: "Press + to add an item. Edit an item by selecting its row and pressing the Edit button.", preferredStyle: .Alert)
+            let alertController = UIAlertController(title: "Welcome to Todo List!", message: "Press + to add an item. Edit an item by selecting its row and pressing the Edit button.", preferredStyle: .alert)
         
-            let yesAlert = UIAlertAction(title: "OK", style: .Default, handler: nil)
+            let yesAlert = UIAlertAction(title: "OK", style: .default, handler: nil)
         
             alertController.addAction(yesAlert)
         
-            self.presentViewController(alertController, animated: true, completion: nil)
+            self.present(alertController, animated: true, completion: nil)
             
             firstRunEver = false
         }

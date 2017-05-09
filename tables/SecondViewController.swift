@@ -10,7 +10,7 @@ import UIKit
 
 var loadedBefore = false
 
-let dateFormatter = NSDateFormatter()
+let dateFormatter = DateFormatter()
 
 class SecondViewController: UIViewController, UITextFieldDelegate {
     
@@ -21,27 +21,27 @@ class SecondViewController: UIViewController, UITextFieldDelegate {
     
     var dateString = String()
     
-    var stringDate = NSDate()
+    var stringDate = Date()
     
     func convertDatePicker() {
-        dateString = dateFormatter.stringFromDate(datePicker.date)
+        dateString = dateFormatter.string(from: datePicker.date)
         if isEdit == true {
-            stringDate = dateFormatter.dateFromString(dateFromLabel)!
+            stringDate = dateFormatter.date(from: dateFromLabel)!
         }
     }
     
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return false
     }
     
-    @IBAction func save(sender: AnyObject) {
+    @IBAction func save(_ sender: AnyObject) {
         if isEdit == true {
             convertDatePicker()
             if name.text!.isEmpty {
                 
             } else {
-                listOfTasks.removeAtIndex(cellNum)
+                listOfTasks.remove(at: cellNum)
                 listOfTasks.append([name.text!,desc.text!,dateString])
                 isEdit = false
             }
@@ -55,21 +55,21 @@ class SecondViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
-    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
     }
     
-    override func shouldPerformSegueWithIdentifier(identifier: String, sender: AnyObject?) -> Bool {
+    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
         if identifier == "Second" {
             if (name.text!.isEmpty) {
                 
-                let alertController = UIAlertController(title: "Add a name!", message: "", preferredStyle: .Alert)
+                let alertController = UIAlertController(title: "Add a name!", message: "", preferredStyle: .alert)
                 
-                let yesAlert = UIAlertAction(title: "OK", style: .Default, handler: nil)
+                let yesAlert = UIAlertAction(title: "OK", style: .default, handler: nil)
                 
                 alertController.addAction(yesAlert)
                 
-                self.presentViewController(alertController, animated: true, completion: nil)
+                self.present(alertController, animated: true, completion: nil)
                 
                 if listOfTasks.isEmpty {
                 } else {
@@ -87,8 +87,8 @@ class SecondViewController: UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
         if loadedBefore == false {
             dateFormatter.dateFormat = "E h:mm a"
-            dateFormatter.AMSymbol = "AM"
-            dateFormatter.PMSymbol = "PM"
+            dateFormatter.amSymbol = "AM"
+            dateFormatter.pmSymbol = "PM"
             loadedBefore = true
             print(datePicker.date)
         }
@@ -102,21 +102,21 @@ class SecondViewController: UIViewController, UITextFieldDelegate {
         // Do any additional setup after loading the view, typically from a nib.
     }
     
-    override func viewWillAppear(animated: Bool) {
-        let currentDate: NSDate = NSDate()
+    override func viewWillAppear(_ animated: Bool) {
+        let currentDate: Date = Date()
         
         //let calendar: NSCalendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)!
-        let calendar: NSCalendar = NSCalendar.currentCalendar()
-        calendar.timeZone = NSTimeZone(name: "UTC")!
+        var calendar: Calendar = Calendar.current
+        calendar.timeZone = TimeZone(identifier: "UTC")!
         
-        let components: NSDateComponents = NSDateComponents()
-        components.calendar = calendar
+        var components: DateComponents = DateComponents()
+        (components as NSDateComponents).calendar = calendar
         
-        components.day = +0
-        let minDate: NSDate = calendar.dateByAddingComponents(components, toDate: currentDate, options: NSCalendarOptions(rawValue: 0))!
+        components.day = 0
+        let minDate: Date = (calendar as NSCalendar).date(byAdding: components, to: currentDate, options: NSCalendar.Options(rawValue: 0))!
         
-        components.day = +7
-        let maxDate: NSDate = calendar.dateByAddingComponents(components, toDate: currentDate, options: NSCalendarOptions(rawValue: 0))!
+        components.day = components.day! + 7
+        let maxDate: Date = (calendar as NSCalendar).date(byAdding: components, to: currentDate, options: NSCalendar.Options(rawValue: 0))!
         
         print("minDate: \(minDate)")
         print("maxDate: \(maxDate)")
@@ -126,8 +126,8 @@ class SecondViewController: UIViewController, UITextFieldDelegate {
         self.datePicker.minimumDate = minDate
         self.datePicker.maximumDate = maxDate
         
-        print(datePicker.minimumDate)
-        print(datePicker.maximumDate)
+        print(datePicker.minimumDate!)
+        print(datePicker.maximumDate!)
     }
 
     override func didReceiveMemoryWarning() {
