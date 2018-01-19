@@ -2,8 +2,8 @@
 //  MyCustomTableViewCell.swift
 //  todo
 //
-//  Created by ghostpotato on 5/23/16.
-//  Copyright © 2016 ghostpotato. All rights reserved.
+//  Created by Aydin Tiritoglu on 5/23/16.
+//  Copyright © 2018 Aydin Tiritoglu. All rights reserved.
 //
 
 import UIKit

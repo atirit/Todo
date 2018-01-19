@@ -2,8 +2,8 @@
 //  SecondViewController.swift
 //  todo
 //
-//  Created by ghostpotato on 5/22/16.
-//  Copyright © 2016 ghostpotato. All rights reserved.
+//  Created by Aydin Tiritoglu on 5/22/16.
+//  Copyright © 2018 Aydin Tiritoglu. All rights reserved.
 //
 
 import UIKit
@@ -53,6 +53,10 @@ class SecondViewController: UIViewController, UITextFieldDelegate {
                 listOfTasks.append([name.text!,desc.text!,dateString])
             }
         }
+    }
+    
+    @IBAction func cancel(_ sender: Any) {
+        isEdit = false
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
